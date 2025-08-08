@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-white text-black antialiased;
+  }
+}
+
+@layer components {
+  /* Button Components */
+  .btn-primary {
+    @apply px-6 py-3 bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200 font-medium;
+  }
+  
+  .btn-outline {
+    @apply px-6 py-3 border border-gray-300 text-gray-700 hover:border-black hover:text-black transition-colors duration-200;
+  }
+  
+  /* Input Components */
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 focus:border-black focus:outline-none transition-colors duration-200;
+  }
+  
+  .input-field:focus {
+    @apply ring-1 ring-black;
+  }
+  
+  /* Card Components */
+  .card {
+    @apply bg-white border border-gray-200 hover:border-black transition-colors duration-200;
+  }
+  
+  .card-elevated {
+    @apply bg-white border border-gray-200 hover:shadow-lg hover:border-black transition-all duration-200;
+  }
+  
+  /* Navigation */
+  .nav-link {
+    @apply text-black hover:text-gray-600 transition-colors duration-200;
+  }
+  
+  .nav-link-active {
+    @apply text-black font-medium border-b-2 border-black;
+  }
+  
+  /* Typography */
+  .heading-xl {
+    @apply text-4xl md:text-6xl font-bold leading-tight;
+  }
+  
+  .heading-lg {
+    @apply text-3xl md:text-4xl font-bold leading-tight;
+  }
+  
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+  
+  .heading-sm {
+    @apply text-xl md:text-2xl font-bold;
+  }
+  
+  .text-body {
+    @apply text-base md:text-lg text-gray-700;
+  }
+  
+  .text-muted {
+    @apply text-sm text-gray-500;
+  }
+  
+  /* Layout */
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-20;
+  }
+  
+  /* Form Components */
+  .form-group {
+    @apply mb-6;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+  
+  .form-error {
+    @apply text-red-600 text-sm mt-1;
+  }
+  
+  .form-success {
+    @apply text-green-600 text-sm mt-1;
+  }
+  
+  /* Loading States */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-6 w-6 border-b-2 border-black;
+  }
+  
+  /* Status Badges */
+  .badge-success {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800;
+  }
+  
+  .badge-warning {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800;
+  }
+  
+  .badge-error {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800;
+  }
+  
+  .badge-neutral {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800;
+  }
+  
+  /* Rating Stars */
+  .star-filled {
+    @apply text-yellow-400;
+  }
+  
+  .star-empty {
+    @apply text-gray-300;
+  }
+  
+  /* Mobile Menu */
+  .mobile-menu-enter {
+    @apply opacity-0 transform -translate-y-1;
+  }
+  
+  .mobile-menu-enter-active {
+    @apply opacity-100 transform translate-y-0 transition-all duration-200 ease-out;
+  }
+  
+  .mobile-menu-exit {
+    @apply opacity-100 transform translate-y-0;
+  }
+  
+  .mobile-menu-exit-active {
+    @apply opacity-0 transform -translate-y-1 transition-all duration-200 ease-in;
+  }
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Focus visible only for keyboard navigation */
+  .focus-visible-only:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Custom grid for service cards */
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Custom breakpoints for fundi cards */
+  .fundi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
