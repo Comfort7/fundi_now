@@ -4,53 +4,50 @@
 
 @layer base {
   html {
+    scroll-behavior: smooth;
     font-family: 'Inter', system-ui, sans-serif;
   }
   
   body {
-    @apply bg-white text-black antialiased;
+    @apply text-gray-900 bg-gray-50 antialiased;
   }
 }
 
 @layer components {
   /* Button Components */
   .btn-primary {
-    @apply px-6 py-3 bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium;
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl;
   }
   
   .btn-secondary {
-    @apply px-6 py-3 border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200 font-medium;
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200;
   }
   
   .btn-outline {
-    @apply px-6 py-3 border border-gray-300 text-gray-700 hover:border-black hover:text-black transition-colors duration-200;
+    @apply border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200 py-2 px-4 rounded;
   }
   
   /* Input Components */
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 focus:border-black focus:outline-none transition-colors duration-200;
-  }
-  
-  .input-field:focus {
-    @apply ring-1 ring-black;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
   
   /* Card Components */
   .card {
-    @apply bg-white border border-gray-200 hover:border-black transition-colors duration-200;
+    @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100;
   }
   
-  .card-elevated {
-    @apply bg-white border border-gray-200 hover:shadow-lg hover:border-black transition-all duration-200;
+  .glass-effect {
+    @apply bg-white/60 backdrop-blur-sm border border-white/20;
   }
   
   /* Navigation */
   .nav-link {
-    @apply text-black hover:text-gray-600 transition-colors duration-200;
+    @apply text-gray-700 hover:text-black transition-colors font-medium;
   }
   
   .nav-link-active {
-    @apply text-black font-medium border-b-2 border-black;
+    @apply text-black font-semibold;
   }
   
   /* Typography */
@@ -185,6 +182,23 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent;
   }
 }
 
