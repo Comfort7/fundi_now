@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function AuthPage() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
-  const [userType, setUserType] = useState('client'); // 'client' or 'worker'
+  const [userType, setUserType] = useState('client');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -47,7 +47,7 @@ export default function AuthPage() {
           if (userType === 'client') {
             router.push('/dashboard');
           } else {
-            router.push('/worker-dashboard'); // We'll create this later
+            router.push('/worker-dashboard');
           }
         } else {
           throw new Error('Please fill in all required fields');
@@ -325,7 +325,11 @@ export default function AuthPage() {
           {/* Footer */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              {isLogin ? "Dont have an account? " : "Already have an account? "}
+              {isLogin ? (
+                <>Don&apos;t have an account? </>
+              ) : (
+                <>Already have an account? </>
+              )}
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-blue-600 hover:text-blue-500 font-medium"
