@@ -325,7 +325,7 @@ export default function AuthPage() {
           {/* Footer */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              {isLogin ? <>Don{'\'t'} have an account? </> : "Already have an account? "}
+              {isLogin ? <>Don{'\'t'} have an account? </> : <>Already have an account? </>}
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-blue-600 hover:text-blue-500 font-medium"
