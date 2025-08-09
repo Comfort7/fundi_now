@@ -32,7 +32,7 @@ export default function Navbar() {
 
   const navigation: NavigationItem[] = [
     { name: 'Home', href: '/' },
-    { name: 'Find Fundis', href: '/fundis' },
+    { name: 'Find Fundis', href: '/dashboard' },
     { name: 'How It Works', href: '/how-it-works' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },

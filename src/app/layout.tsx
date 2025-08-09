@@ -68,7 +68,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning={true}>
         {/* Skip to main content for accessibility */}
         <a 
           href="#main-content" 

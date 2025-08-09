@@ -9,7 +9,7 @@ export default function Footer() {
     {
       title: 'For Customers',
       links: [
-        { name: 'Find Fundis', href: '/fundis' },
+        { name: 'Find Fundis', href: '/dashboard' },
         { name: 'How It Works', href: '/how-it-works' },
         { name: 'Service Areas', href: '/areas' },
         { name: 'Pricing', href: '/pricing' },
@@ -120,6 +120,16 @@ export default function Footer() {
                 </ul>
               </div>
             ))}
+
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="/dashboard" className="hover:text-black">Find Fundis</a></li>
+                <li><a href="/how-it-works" className="hover:text-black">How It Works</a></li>
+                <li><a href="/areas" className="hover:text-black">Service Areas</a></li>
+                <li><a href="/pricing" className="hover:text-black">Pricing</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
