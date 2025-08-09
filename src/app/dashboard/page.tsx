@@ -9,7 +9,6 @@ export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [user, setUser] = useState({ name: 'Guest User' }) // Default user for now
-  const [loading, setLoading] = useState(false) // Set to false to skip loading
 
   // Simplified authentication check - remove redirect for now
   useEffect(() => {
@@ -24,8 +23,6 @@ export default function Dashboard() {
     localStorage.removeItem('fundiUser')
     router.push('/')
   }
-
-  // Removed loading state check
 
   // Mock data - replace with real data later
   const categories = [
