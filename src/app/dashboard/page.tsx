@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Dashboard() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedWorker, setSelectedWorker] = useState(null)
   const [user, setUser] = useState({ name: 'Guest User' }) // Default user for now
   const [loading, setLoading] = useState(false) // Set to false to skip loading
 
@@ -134,8 +134,8 @@ export default function Dashboard() {
   })
 
   const handleBookWorker = (worker) => {
-    setSelectedWorker(worker)
     // TODO: Open booking modal or navigate to booking page
+    console.log('Booking worker:', worker)
   }
 
   return (
@@ -146,9 +146,9 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <a href="/" className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
+                <Link href="/" className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
                   <span className="text-white font-bold">F</span>
-                </a>
+                </Link>
                 <h1 className="text-2xl font-bold text-gray-900">Fundi</h1>
               </div>
             </div>

@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
-  const router = useRouter()
-  const [isLogin, setIsLogin] = useState(true)
-  const [userType, setUserType] = useState('client') // 'client' or 'worker'
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter();
+  const [isLogin, setIsLogin] = useState(true);
+  const [userType, setUserType] = useState('client'); // 'client' or 'worker'
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,22 +17,22 @@ export default function AuthPage() {
     location: '',
     skills: '',
     experience: ''
-  })
+  });
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
     try {
       // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Mock authentication logic
       if (isLogin) {
         // Login logic
         if (formData.email && formData.password) {
-          console.log('Login successful:', { email: formData.email, userType })
+          console.log('Login successful:', { email: formData.email, userType });
           
           // Store user data in localStorage (temporary solution)
           const userData = {
@@ -40,22 +40,22 @@ export default function AuthPage() {
             userType: userType,
             name: formData.name || 'User',
             isLoggedIn: true
-          }
-          localStorage.setItem('fundiUser', JSON.stringify(userData))
+          };
+          localStorage.setItem('fundiUser', JSON.stringify(userData));
           
           // Redirect based on user type
           if (userType === 'client') {
-            router.push('/dashboard')
+            router.push('/dashboard');
           } else {
-            router.push('/worker-dashboard') // We'll create this later
+            router.push('/worker-dashboard'); // We'll create this later
           }
         } else {
-          throw new Error('Please fill in all required fields')
+          throw new Error('Please fill in all required fields');
         }
       } else {
         // Registration logic
         if (formData.email && formData.password && formData.name && formData.phone && formData.location) {
-          console.log('Registration successful:', { userType, formData })
+          console.log('Registration successful:', { userType, formData });
           
           // Store user data
           const userData = {
@@ -67,34 +67,34 @@ export default function AuthPage() {
             skills: formData.skills,
             experience: formData.experience,
             isLoggedIn: true
-          }
-          localStorage.setItem('fundiUser', JSON.stringify(userData))
+          };
+          localStorage.setItem('fundiUser', JSON.stringify(userData));
           
           // Show success message and redirect
-          alert(`Account created successfully! Welcome ${formData.name}`)
+          alert(`Account created successfully! Welcome ${formData.name}`);
           
           if (userType === 'client') {
-            router.push('/dashboard')
+            router.push('/dashboard');
           } else {
-            router.push('/worker-dashboard')
+            router.push('/worker-dashboard');
           }
         } else {
-          throw new Error('Please fill in all required fields')
+          throw new Error('Please fill in all required fields');
         }
       }
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
@@ -337,5 +337,5 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
