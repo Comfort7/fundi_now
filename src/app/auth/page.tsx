@@ -20,7 +20,7 @@ export default function AuthPage() {
     experience: ''
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -84,13 +84,13 @@ export default function AuthPage() {
         }
       }
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value

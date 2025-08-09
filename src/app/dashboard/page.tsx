@@ -130,7 +130,7 @@ export default function Dashboard() {
     return matchesCategory && matchesSearch
   })
 
-  const handleBookWorker = (worker) => {
+  const handleBookWorker = (worker: { id: number; name: string; category: string; rating: number; reviews: number; hourlyRate: number; location: string; skills: string[]; experience: string; image: string; availability: string; verified: boolean }) => {
     // TODO: Open booking modal or navigate to booking page
     console.log('Booking worker:', worker)
   }
