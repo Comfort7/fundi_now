@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -45,16 +44,16 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { name: 'Facebook', href: '#', icon: Facebook },
-    { name: 'Twitter', href: '#', icon: Twitter },
-    { name: 'Instagram', href: '#', icon: Instagram },
-    { name: 'LinkedIn', href: '#', icon: Linkedin },
+    { name: 'Facebook', href: '#', icon: '📘' },
+    { name: 'Twitter', href: '#', icon: '🐦' },
+    { name: 'Instagram', href: '#', icon: '📷' },
+    { name: 'LinkedIn', href: '#', icon: '💼' },
   ]
 
   const contactInfo = [
-    { icon: Mail, text: 'hello@fundinow.co.ke', href: 'mailto:hello@fundinow.co.ke' },
-    { icon: Phone, text: '+254 700 000 000', href: 'tel:+254700000000' },
-    { icon: MapPin, text: 'Nairobi, Kenya', href: '#' },
+    { icon: '📧', text: 'hello@fundinow.co.ke', href: 'mailto:hello@fundinow.co.ke' },
+    { icon: '📞', text: '+254 700 000 000', href: 'tel:+254700000000' },
+    { icon: '📍', text: 'Nairobi, Kenya', href: '#' },
   ]
 
   return (
@@ -81,7 +80,7 @@ export default function Footer() {
                     href={item.href}
                     className="flex items-center text-gray-600 hover:text-black transition-colors"
                   >
-                    <item.icon className="w-4 h-4 mr-3 flex-shrink-0" />
+                    <span className="mr-3 flex-shrink-0">{item.icon}</span>
                     <span className="text-sm">{item.text}</span>
                   </Link>
                 ))}
@@ -96,7 +95,7 @@ export default function Footer() {
                     className="p-2 border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all duration-200"
                     title={social.name}
                   >
-                    <social.icon className="w-4 h-4" />
+                    <span>{social.icon}</span>
                   </Link>
                 ))}
               </div>

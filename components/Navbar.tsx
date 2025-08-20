@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Search } from 'lucide-react'
 
 interface NavigationItem {
   name: string
@@ -125,7 +124,7 @@ export default function Navbar() {
               className="p-2 text-gray-600 hover:text-black transition-colors"
               title="Search Fundis"
             >
-              <Search className="w-5 h-5" />
+              <span className="text-lg">🔍</span>
             </Link>
             
             {user ? (
@@ -171,7 +170,7 @@ export default function Navbar() {
               href="/search"
               className="p-2 text-gray-600 hover:text-black transition-colors"
             >
-              <Search className="w-5 h-5" />
+              <span className="text-lg">🔍</span>
             </Link>
             
             <button
@@ -179,7 +178,7 @@ export default function Navbar() {
               className="p-2 text-gray-600 hover:text-black transition-colors"
               aria-label="Toggle mobile menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <span className="text-lg">✕</span> : <span className="text-lg">☰</span>}
             </button>
           </div>
         </div>

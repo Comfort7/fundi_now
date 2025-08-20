@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Search, Star, Shield, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -16,22 +15,22 @@ export default function HomePage() {
 
   const features = [
     {
-      icon: <Search className="w-8 h-8" />,
+      icon: <span className="text-4xl">🔍</span>,
       title: "Easy Search",
       description: "Find qualified fundis in your area with our simple search",
     },
     {
-      icon: <Star className="w-8 h-8" />,
+      icon: <span className="text-4xl">⭐</span>,
       title: "Rated & Reviewed",
       description: "All fundis are rated by previous customers for quality assurance",
     },
     {
-      icon: <Shield className="w-8 h-8" />,
+      icon: <span className="text-4xl">🛡️</span>,
       title: "Verified Professionals",
       description: "Every fundi is verified to ensure reliable service delivery",
     },
     {
-      icon: <Clock className="w-8 h-8" />,
+      icon: <span className="text-4xl">⏰</span>,
       title: "Quick Booking",
       description: "Book services instantly and get work done on your schedule",
     },
@@ -58,7 +57,7 @@ export default function HomePage() {
               className="px-8 py-4 bg-black text-white text-lg hover:bg-gray-800 transition-colors flex items-center justify-center"
             >
               Find a Fundi
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <span className="ml-2">→</span>
             </Link>
             <button className="btn-secondary text-lg px-8 py-4">
               Register as Fundi
