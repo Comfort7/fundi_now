@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
     const token = Buffer.from(`${newUser.id}:${newUser.email}:${Date.now()}`).toString('base64');
 
     // Return user data (without password) and token
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = newUser;
     
     const response = NextResponse.json({
