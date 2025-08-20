@@ -1,16 +1,14 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AuthPage() {
-  const router = useRouter();
-  const [isLogin, setIsLogin] = useState(true);
-  const [userType, setUserType] = useState('client');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const router = useRouter()
+  const [isLogin, setIsLogin] = useState(true)
+  const [userType, setUserType] = useState('client') // 'client' or 'worker'
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -19,22 +17,22 @@ export default function AuthPage() {
     location: '',
     skills: '',
     experience: ''
-  });
+  })
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
 
     try {
       // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500))
       
       // Mock authentication logic
       if (isLogin) {
         // Login logic
         if (formData.email && formData.password) {
-          console.log('Login successful:', { email: formData.email, userType });
+          console.log('Login successful:', { email: formData.email, userType })
           
           // Store user data in localStorage (temporary solution)
           const userData = {
@@ -42,22 +40,22 @@ export default function AuthPage() {
             userType: userType,
             name: formData.name || 'User',
             isLoggedIn: true
-          };
-          localStorage.setItem('fundiUser', JSON.stringify(userData));
+          }
+          localStorage.setItem('fundiUser', JSON.stringify(userData))
           
           // Redirect based on user type
           if (userType === 'client') {
-            router.push('/dashboard');
+            router.push('/dashboard')
           } else {
-            router.push('/worker-dashboard');
+            router.push('/worker-dashboard')
           }
         } else {
-          throw new Error('Please fill in all required fields');
+          throw new Error('Please fill in all required fields')
         }
       } else {
         // Registration logic
         if (formData.email && formData.password && formData.name && formData.phone && formData.location) {
-          console.log('Registration successful:', { userType, formData });
+          console.log('Registration successful:', { userType, formData })
           
           // Store user data
           const userData = {
@@ -69,34 +67,34 @@ export default function AuthPage() {
             skills: formData.skills,
             experience: formData.experience,
             isLoggedIn: true
-          };
-          localStorage.setItem('fundiUser', JSON.stringify(userData));
+          }
+          localStorage.setItem('fundiUser', JSON.stringify(userData))
           
           // Show success message and redirect
-          alert(`Account created successfully! Welcome ${formData.name}`);
+          alert(`Account created successfully! Welcome ${formData.name}`)
           
           if (userType === 'client') {
-            router.push('/dashboard');
+            router.push('/dashboard')
           } else {
-            router.push('/worker-dashboard');
+            router.push('/worker-dashboard')
           }
         } else {
-          throw new Error('Please fill in all required fields');
+          throw new Error('Please fill in all required fields')
         }
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    });
-  };
+    })
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
@@ -327,7 +325,7 @@ export default function AuthPage() {
           {/* Footer */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              {isLogin ? `Don't have an account? ` : `Already have an account? `}
+              {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-blue-600 hover:text-blue-500 font-medium"
@@ -339,5 +337,5 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

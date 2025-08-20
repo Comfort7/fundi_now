@@ -13,7 +13,38 @@ interface NavigationItem {
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [user, setUser] = useState<any>(null)
   const pathname = usePathname()
+
+  // Check for user authentication
+  useEffect(() => {
+    const userData = localStorage.getItem('fundiUser')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+      // Call logout API to clear server-side cookie
+      await fetch('/api/auth/logout', { method: 'POST' });
+      
+      // Clear client-side storage
+      localStorage.removeItem('fundiUser')
+      localStorage.removeItem('authToken')
+      setUser(null)
+      
+      // Redirect to home page
+      window.location.href = '/'
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Still clear local storage and redirect even if API fails
+      localStorage.removeItem('fundiUser')
+      localStorage.removeItem('authToken')
+      setUser(null)
+      window.location.href = '/'
+    }
+  }
 
   // Handle scroll effect
   useEffect(() => {
@@ -91,19 +122,41 @@ export default function Navbar() {
               <Search className="w-5 h-5" />
             </Link>
             
-            <Link
-              href="/login"
-              className="btn-outline text-sm"
-            >
-              Login
-            </Link>
-            
-            <Link
-              href="/register"
-              className="btn-primary text-sm"
-            >
-              Sign Up
-            </Link>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link
+                  href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
+                  className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <span className="text-sm text-gray-600">
+                  Hi, {user.name}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="btn-outline text-sm"
+                >
+                  Login
+                </Link>
+                
+                <Link
+                  href="/register"
+                  className="btn-primary text-sm"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -149,18 +202,40 @@ export default function Navbar() {
             ))}
             
             <div className="px-4 py-3 space-y-3 border-t border-gray-200 mt-4">
-              <Link
-                href="/login"
-                className="block w-full text-center btn-outline"
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                className="block w-full text-center btn-primary"
-              >
-                Sign Up
-              </Link>
+              {user ? (
+                <div className="space-y-3">
+                  <Link
+                    href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
+                    className="block text-center text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="text-center text-sm text-gray-600">
+                    Hi, {user.name}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-center text-sm font-medium text-gray-700 hover:text-black transition-colors border border-gray-300 rounded-md py-2"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="block w-full text-center btn-outline"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="block w-full text-center btn-primary"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

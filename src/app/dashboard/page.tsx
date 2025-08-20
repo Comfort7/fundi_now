@@ -8,20 +8,46 @@ export default function Dashboard() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [user, setUser] = useState({ name: 'Guest User' }) // Default user for now
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Simplified authentication check - remove redirect for now
+  // Check authentication
   useEffect(() => {
     const userData = localStorage.getItem('fundiUser')
-    if (userData) {
-      setUser(JSON.parse(userData))
+    const token = localStorage.getItem('authToken')
+    
+    if (!userData || !token) {
+      router.push('/login')
+      return
     }
-    // Removed redirect to /auth
+    
+    const parsedUser = JSON.parse(userData)
+    
+    // Redirect workers to their dashboard
+    if (parsedUser.userType === 'worker') {
+      router.push('/worker-dashboard')
+      return
+    }
+    
+    setUser(parsedUser)
+    setLoading(false)
   }, [router])
 
-  const handleLogout = () => {
-    localStorage.removeItem('fundiUser')
-    router.push('/')
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-black"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render if no user (will redirect)
+  if (!user) {
+    return null
   }
 
   // Mock data - replace with real data later
@@ -156,15 +182,12 @@ export default function Dashboard() {
                   Welcome, {user.name}!
                 </span>
               )}
-              <button 
-                onClick={handleLogout}
-                className="text-gray-600 hover:text-gray-900 text-sm"
+              <Link 
+                href="/profile"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
-                Logout
-              </button>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 Profile
-              </button>
+              </Link>
             </div>
           </div>
         </div>

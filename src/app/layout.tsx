@@ -69,29 +69,29 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning={true}>
-        {/* Skip to main content for accessibility */}
-        <a 
-          href="#main-content" 
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50 focus-visible-only"
-        >
-          Skip to main content
-        </a>
-        
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
+          {/* Skip to main content for accessibility */}
+          <a 
+            href="#main-content" 
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50 focus-visible-only"
+          >
+            Skip to main content
+          </a>
           
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            
+            <Footer />
+          </div>
           
-          <Footer />
-        </div>
-        
-        {/* Loading indicator for page transitions */}
-        <div id="loading-indicator" className="hidden fixed top-0 left-0 w-full h-1 bg-black z-50">
-          <div className="h-full bg-white animate-pulse"></div>
-        </div>
-      </body>
-    </html>
+          {/* Loading indicator for page transitions */}
+          <div id="loading-indicator" className="hidden fixed top-0 left-0 w-full h-1 bg-black z-50">
+            <div className="h-full bg-white animate-pulse"></div>
+          </div>
+        </body>
+      </html>
   )
 }
