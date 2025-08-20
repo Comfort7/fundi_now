@@ -10,10 +10,16 @@ interface NavigationItem {
   href: string
 }
 
+interface User {
+  name: string
+  email: string
+  userType: 'client' | 'worker'
+}
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
 
   // Check for user authentication

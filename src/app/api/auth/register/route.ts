@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // This is a simple mock implementation
 // In a real application, you would connect to your database
-let mockUsers = [
+const mockUsers = [
   {
     id: 1,
     name: 'John Doe',
