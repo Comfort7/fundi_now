@@ -19,17 +19,31 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [isClient, setIsClient] = useState(false) // Add client-side check
   const pathname = usePathname()
 
-  // Check for user authentication
+  // Check if we're on the client side
   useEffect(() => {
-    const userData = localStorage.getItem('fundiUser')
-    if (userData) {
-      setUser(JSON.parse(userData))
-    }
+    setIsClient(true)
   }, [])
 
+  // Check for user authentication - only run on client side
+  useEffect(() => {
+    if (!isClient) return // Don't run on server
+    
+    try {
+      const userData = localStorage.getItem('fundiUser')
+      if (userData) {
+        setUser(JSON.parse(userData))
+      }
+    } catch (error) {
+      console.error('Error reading user data:', error)
+    }
+  }, [isClient])
+
   const handleLogout = async () => {
+    if (!isClient) return // Safety check
+    
     try {
       // Call logout API to clear server-side cookie
       await fetch('/api/auth/logout', { method: 'POST' });
@@ -53,13 +67,15 @@ export default function Navbar() {
 
   // Handle scroll effect
   useEffect(() => {
+    if (!isClient) return // Only run on client
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
     
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isClient])
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -127,25 +143,45 @@ export default function Navbar() {
               <span className="text-lg">🔍</span>
             </Link>
             
-            {user ? (
-              <div className="flex items-center space-x-4">
-                <Link
-                  href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
-                  className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-                >
-                  Dashboard
-                </Link>
-                <span className="text-sm text-gray-600">
-                  Hi, {user.name}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
-                >
-                  Logout
-                </button>
-              </div>
+            {/* Only show user info after client-side hydration */}
+            {isClient ? (
+              user ? (
+                <div className="flex items-center space-x-4">
+                  <Link
+                    href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
+                    className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <span className="text-sm text-gray-600">
+                    Hi, {user.name}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="btn-outline text-sm"
+                  >
+                    Login
+                  </Link>
+                  
+                  <Link
+                    href="/register"
+                    className="btn-primary text-sm"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )
             ) : (
+              // Show loading state or default buttons during SSR
               <>
                 <Link
                   href="/login"
@@ -207,25 +243,43 @@ export default function Navbar() {
             ))}
             
             <div className="px-4 py-3 space-y-3 border-t border-gray-200 mt-4">
-              {user ? (
-                <div className="space-y-3">
-                  <Link
-                    href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
-                    className="block text-center text-sm font-medium text-gray-700 hover:text-black transition-colors"
-                  >
-                    Dashboard
-                  </Link>
-                  <div className="text-center text-sm text-gray-600">
-                    Hi, {user.name}
+              {isClient ? (
+                user ? (
+                  <div className="space-y-3">
+                    <Link
+                      href={user.userType === 'worker' ? '/worker-dashboard' : '/dashboard'}
+                      className="block text-center text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                    <div className="text-center text-sm text-gray-600">
+                      Hi, {user.name}
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-center text-sm font-medium text-gray-700 hover:text-black transition-colors border border-gray-300 rounded-md py-2"
+                    >
+                      Logout
+                    </button>
                   </div>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-center text-sm font-medium text-gray-700 hover:text-black transition-colors border border-gray-300 rounded-md py-2"
-                  >
-                    Logout
-                  </button>
-                </div>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="block w-full text-center btn-outline"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="block w-full text-center btn-primary"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )
               ) : (
+                // Default mobile menu during SSR
                 <>
                   <Link
                     href="/login"
